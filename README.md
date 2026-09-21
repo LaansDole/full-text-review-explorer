@@ -1,6 +1,10 @@
 # Full-text Review Explorer
 
+[![GitHub Pages](https://img.shields.io/badge/scoping%20review%20deck-GitHub%20Pages-blue?style=flat-square&logo=github)](https://laansdole.github.io/full-text-review-explorer/)
+
 A lightweight, self-hosted systematic review research tool. Provides thematic analysis, paper reviews, AI-powered search, and classification of research papers.
+
+> **Live:** [Scoping review presentation](https://laansdole.github.io/full-text-review-explorer/) — "LLM-driven multi-agent collaboration in healthcare settings" (81 studies, 2024–2026), served from [`docs/index.html`](docs/index.html).
 
 ## Comparison with Covidence
 
