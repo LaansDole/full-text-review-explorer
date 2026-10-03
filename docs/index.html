@@ -31,8 +31,8 @@
     --font-body: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
     --font-mono: 'IBM Plex Mono', 'SFMono-Regular', monospace;
 
-    --title-size: 64px;
-    --body-size: 27px;
+    --title-size: 70px;
+    --body-size: 30px;
     --slide-pad-x: 110px;
     --slide-pad-top: 84px;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -174,7 +174,7 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
 .lede { font-size: var(--body-size); line-height: 1.55; color: var(--ink); max-width: 860px; }
 .dim { color: var(--ink-dim); }
 .mono { font-family: var(--font-mono); }
-.small-note { font-size: 21px; color: var(--ink-dim); line-height: 1.5; }
+.small-note { font-size: 25px; color: var(--ink-dim); line-height: 1.4; }
 
 .card {
     background: var(--card-bg);
@@ -184,13 +184,13 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
 }
 .card h3 {
     font-family: var(--font-display);
-    font-size: 31px;
+    font-size: 36px;
     font-weight: 500;
     color: var(--ink);
     margin-bottom: 14px;
 }
-.card p { font-size: 24px; line-height: 1.5; color: var(--ink-dim); }
-.card p strong { color: var(--ink); font-weight: 500; }
+.card p { font-size: 30px; line-height: 1.35; color: var(--ink-dim); }
+.card p strong { color: var(--ink); font-weight: 700; }
 
 .big-num {
     font-family: var(--font-display);
@@ -200,7 +200,7 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
 }
 .stat-label {
     font-family: var(--font-mono);
-    font-size: 20px;
+    font-size: 23px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-dim);
@@ -222,7 +222,7 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
    =========================================== */
 .rows { display: flex; flex-direction: column; gap: 14px; }
 .row { display: flex; align-items: center; gap: 22px; }
-.row-label { width: 330px; font-size: 24px; color: var(--ink); flex-shrink: 0; }
+.row-label { width: 330px; font-size: 28px; color: var(--ink); flex-shrink: 0; }
 .row-track {
     flex: 1;
     height: 42px;
@@ -250,16 +250,11 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
     text-align: right;
 }
 
-/* ===========================================
-   ENTRANCE ANIMATIONS (staggered via --d)
-   =========================================== */
+/* Reveal content immediately; motion is intentionally disabled for presenting. */
 .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-    transition-delay: var(--d, 0s);
+    opacity: 1;
+    transform: none;
 }
-.slide.active .reveal { opacity: 1; transform: none; }
 
 /* ===========================================
    ECG SIGNATURE LINE
@@ -275,7 +270,7 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
     stroke-dashoffset: 2600;
     filter: drop-shadow(0 0 7px rgba(47, 214, 179, 0.45));
 }
-.slide.active .ecg path { animation: ecgdraw 2.8s ease-out forwards; }
+ .slide.active .ecg path { stroke-dashoffset: 0; }
 @keyframes ecgdraw { to { stroke-dashoffset: 0; } }
 
 /* ===========================================
@@ -358,6 +353,23 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
     flex-shrink: 0;
 }
 
+/* PRISMA-style selection flow */
+.prisma { margin-top: -4px; }
+.prisma-labels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 14px; color: var(--accent); font: 22px var(--font-mono); letter-spacing: .1em; text-align: center; }
+.prisma-flow { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(440px, 1fr); gap: 54px; height: 620px; }
+.prisma-main { display: grid; grid-template-rows: 1fr 32px 1fr 32px 1fr 32px 1fr; align-items: stretch; }
+.prisma-box, .prisma-excluded { border: 2px solid rgba(47,214,179,.38); border-radius: 14px; background: rgba(233,241,238,.035); padding: 16px 26px; display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 20px; }
+.prisma-box strong, .prisma-excluded strong { font-size: 28px; color: var(--ink); }
+.prisma-box b, .prisma-excluded b { color: var(--accent); font: 600 48px var(--font-display); text-align: right; }
+.prisma-box small, .prisma-excluded small { grid-column: 1 / -1; font-size: 22px; color: var(--ink-dim); margin-top: 2px; }
+.prisma-included { background: rgba(47,214,179,.12); border-color: var(--accent); }
+.prisma-included b { font-size: 58px; }
+.prisma-arrow { color: var(--accent); text-align: center; font-size: 30px; line-height: 32px; }
+.prisma-side { display: grid; grid-template-rows: 1fr 1fr 1fr 1fr; align-items: center; gap: 13px; }
+.prisma-excluded { border-color: rgba(232,106,94,.4); min-height: 110px; }
+.prisma-excluded b { color: var(--coral); }
+.prisma-connector { position: absolute; margin-left: -42px; color: var(--ink-dim); font-size: 28px; }
+
 /* Numbered direction rows (future directions) */
 .dir { display: flex; gap: 40px; align-items: baseline; border-top: 1px solid var(--line); padding: 30px 0; }
 .dir:first-child { border-top: none; padding-top: 6px; }
@@ -372,6 +384,17 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
 }
 .dir h3 { font-family: var(--font-display); font-size: 34px; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
 .dir p { font-size: 25px; color: var(--ink-dim); line-height: 1.5; max-width: 1180px; }
+
+/* Disable all motion, including progress and chrome transitions. */
+*, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+.row-fill { width: var(--w); }
+.ecg path { stroke-dashoffset: 0; }
+.prisma-connector { position: static; margin: 0; display: none; }
+.prisma-side { position: relative; }
+.prisma-side::before { content: ''; position: absolute; left: -30px; top: 9%; bottom: 9%; border-left: 2px solid rgba(232,106,94,.45); }
+.prisma-excluded { position: relative; }
+.prisma-excluded::before { content: ''; position: absolute; left: -30px; width: 28px; border-top: 2px solid rgba(232,106,94,.45); }
+.prisma-labels span:last-child { color: var(--accent); }
 
 /* ===========================================
    DECK CHROME (outside the stage design system)
@@ -488,15 +511,15 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
     <h2 class="slide-title reveal" style="--d:0.15s">Clinical decisions are <em>collaborative</em></h2>
     <div class="cols">
         <div class="card reveal" style="--d:0.3s">
-            <h3>How medicine already works</h3>
-            <p>Tumor boards, transplant committees, ICU rounds: specialists <strong>propose, challenge, and reconcile</strong> competing assessments, because individual judgment is fallible &mdash; biased, incompletely informed, specialty-bound.</p>
+            <h3>Clinical teams</h3>
+            <p><strong>Team judgment</strong><br>Challenge &middot; reconcile &middot; decide</p>
         </div>
         <div class="card reveal" style="--d:0.45s">
-            <h3>What a single LLM reproduces</h3>
-            <p>The weaknesses of a single decision-maker, <strong>amplified</strong>: hallucinated facts, premature conclusions, fluent but flawed reasoning &mdash; with <strong>no internal mechanism for independent challenge</strong>.</p>
+            <h3>Single LLM</h3>
+            <p><strong>Single-agent risks</strong><br>Hallucination &middot; bias &middot; no challenge</p>
         </div>
     </div>
-    <p class="lede reveal" style="--d:0.62s; margin-top:44px;">A distinct paradigm answers this: <strong style="color:var(--accent)">several LLM agents collaborating on one clinical task</strong> &mdash; exchanging, critiquing, and revising each other's outputs before committing to a result.</p>
+    <p class="lede reveal" style="--d:0.62s; margin-top:44px;"><strong style="color:var(--accent)">Multi-agent collaboration</strong><br>Exchange &rarr; critique &rarr; revise</p>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>02 / 18</span></div>
 </section>
 
@@ -508,19 +531,19 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
         <div class="stack">
             <div class="card reveal" style="--d:0.3s">
                 <h3>Included</h3>
-                <p><strong>&ge; 2 distinct LLM agents</strong> on a shared healthcare task, where at least one agent's output is <strong>revised, critiqued, or reconciled</strong> in response to another &mdash; feedback, debate, consensus, or conflict resolution, in the manner of MDT coordination.</p>
+                <p><strong>&ge;2 LLM agents</strong><br>Shared healthcare task<br><strong>Inter-agent feedback</strong></p>
             </div>
             <div class="card reveal" style="--d:0.45s">
                 <h3>Excluded</h3>
-                <p>Single-LLM systems (even with tools or retrieval) &middot; fixed sequential role-prompt chains without feedback &middot; pre-LLM multi-agent systems &middot; reviews and editorials without an implemented system.</p>
+                <p>Single LLM &middot; fixed prompt chains<br>Pre-LLM systems &middot; reviews</p>
             </div>
         </div>
         <div class="stack">
             <div class="card reveal" style="--d:0.6s">
-                <h3>Early exemplars</h3>
-                <p><strong>MedAgents</strong> &mdash; expert panels for zero-shot medical reasoning (Tang 2024)<br><strong>MDAgents</strong> &mdash; collaboration structure adapts to case difficulty (Kim 2024)<br><strong>Multi-agent conversations</strong> &mdash; mitigating clinicians' cognitive biases (Ke 2024)</p>
+                <h3>Examples</h3>
+                <p><strong>MedAgents</strong> &middot; <strong>MDAgents</strong><br>Expert panels &middot; adaptive teams<br>Bias-aware dialogue</p>
             </div>
-            <p class="small-note reveal" style="--d:0.75s">Interaction protocols deliberately mirror case conferences, MDT meetings, and peer review.</p>
+            <p class="small-note reveal" style="--d:0.75s"><strong>Inspired by:</strong> MDTs &middot; case conferences &middot; peer review</p>
         </div>
     </div>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>03 / 18</span></div>
@@ -531,12 +554,12 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
     <div class="kicker reveal" style="--d:0.05s">2 &middot; Stage 1</div>
     <h2 class="slide-title reveal" style="--d:0.15s">Five questions, framed by <em>PCC</em></h2>
     <div class="grid-2" style="gap: 26px;">
-        <div class="card reveal" style="--d:0.28s"><h3><span class="mono" style="color:var(--accent)">Q1</span> &nbsp;Where</h3><p>In which healthcare domains and clinical contexts have these systems been applied?</p></div>
-        <div class="card reveal" style="--d:0.38s"><h3><span class="mono" style="color:var(--accent)">Q2</span> &nbsp;How, structurally</h3><p>Which collaboration architectures and coordination mechanisms &mdash; debate, consensus, hierarchy, dynamic assembly?</p></div>
-        <div class="card reveal" style="--d:0.48s"><h3><span class="mono" style="color:var(--accent)">Q3</span> &nbsp;On what models</h3><p>Which underlying language models, proprietary or open-source, power the agents?</p></div>
-        <div class="card reveal" style="--d:0.58s"><h3><span class="mono" style="color:var(--accent)">Q4</span> &nbsp;How evaluated</h3><p>How are these systems evaluated, and what outcomes are reported?</p></div>
+        <div class="card reveal" style="--d:0.28s"><h3><span class="mono" style="color:var(--accent)">Q1</span> &nbsp;Where?</h3><p><strong>Clinical domains</strong></p></div>
+        <div class="card reveal" style="--d:0.38s"><h3><span class="mono" style="color:var(--accent)">Q2</span> &nbsp;How?</h3><p><strong>Team architectures</strong></p></div>
+        <div class="card reveal" style="--d:0.48s"><h3><span class="mono" style="color:var(--accent)">Q3</span> &nbsp;Which models?</h3><p><strong>LLMs &amp; platforms</strong></p></div>
+        <div class="card reveal" style="--d:0.58s"><h3><span class="mono" style="color:var(--accent)">Q4</span> &nbsp;How tested?</h3><p><strong>Evaluation &amp; outcomes</strong></p></div>
     </div>
-    <div class="card reveal" style="--d:0.68s; margin-top:26px;"><h3><span class="mono" style="color:var(--accent)">Q5</span> &nbsp;At what cost</h3><p>What benefits, risks, and practical or ethical challenges does the literature identify?</p></div>
+    <div class="card reveal" style="--d:0.68s; margin-top:26px;"><h3><span class="mono" style="color:var(--accent)">Q5</span> &nbsp;At what cost?</h3><p><strong>Benefits &middot; risks &middot; ethics</strong></p></div>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>04 / 18</span></div>
 </section>
 
@@ -548,41 +571,52 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
         <div class="stack">
             <div class="card reveal" style="--d:0.28s">
                 <h3>Search</h3>
-                <p><strong>PubMed, Scopus, CINAHL, Cochrane Library, IEEE Xplore</strong> &mdash; June 2026, records from 2022&ndash;2026, two concept blocks (LLM agents &times; multi-agent collaboration in healthcare).</p>
+                <p><strong>5 databases</strong><br>PubMed &middot; Scopus &middot; CINAHL<br>Cochrane &middot; IEEE Xplore</p>
             </div>
             <div class="card reveal" style="--d:0.4s">
                 <h3>Framework</h3>
-                <p>Arksey &amp; O'Malley five stages; reported per <strong>PRISMA-ScR</strong>. Protocol not prospectively registered.</p>
+                <p><strong>Arksey &amp; O'Malley</strong><br><strong>PRISMA-ScR</strong></p>
             </div>
         </div>
         <div class="stack">
             <div class="card reveal" style="--d:0.52s">
                 <h3>Charting discipline</h3>
-                <p>Every charted value backed by a <strong>verbatim quotation</strong> checked against source text; unsupported values recorded as <span class="mono" style="color:var(--amber)">not reported</span>, never inferred.</p>
+                <p><strong>Verbatim evidence</strong><br>Unreported &ne; inferred</p>
             </div>
             <div class="card reveal" style="--d:0.64s">
-                <h3>Deliberate choice</h3>
-                <p>No formal critical appraisal &mdash; the aim is to <strong>map extent and nature</strong>, not weigh pooled effects. Venue profile is reported as a characteristic instead.</p>
+                <h3>Scope</h3>
+                <p><strong>Map the field</strong><br>No critical appraisal</p>
             </div>
         </div>
     </div>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>05 / 18</span></div>
 </section>
 
-<!-- ============ SLIDE 6 · PRISMA FLOW ============ -->
+<!-- ============ SLIDE 6 · PRISMA FLOW DIAGRAM ============ -->
 <section class="slide">
-    <div class="kicker reveal" style="--d:0.05s">3 &middot; Selection</div>
-    <h2 class="slide-title reveal" style="--d:0.15s">529 records in, <em>81 studies</em> out</h2>
-    <div class="flow">
-        <div class="flow-step reveal" style="--d:0.3s"><div class="card"><div class="big-num">529</div><div class="stat-label">Records identified</div><p style="margin-top:12px">Five databases</p></div></div>
-        <div class="flow-arrow reveal" style="--d:0.4s">&mdash;&rsaquo;</div>
-        <div class="flow-step reveal" style="--d:0.45s"><div class="card"><div class="big-num">457</div><div class="stat-label">Title/abstract screened</div><p style="margin-top:12px">72 duplicates removed &middot; 308 excluded as irrelevant</p></div></div>
-        <div class="flow-arrow reveal" style="--d:0.55s">&mdash;&rsaquo;</div>
-        <div class="flow-step reveal" style="--d:0.6s"><div class="card"><div class="big-num">149</div><div class="stat-label">Full texts assessed</div><p style="margin-top:12px">67 excluded: wrong concept 58 &middot; wrong context 5 &middot; design 2 &middot; not retrievable 2</p></div></div>
-        <div class="flow-arrow reveal" style="--d:0.7s">&mdash;&rsaquo;</div>
-        <div class="flow-step reveal" style="--d:0.75s"><div class="card" style="border-color: rgba(47,214,179,0.45);"><div class="big-num" style="color:var(--accent)">81</div><div class="stat-label">Studies included</div><p style="margin-top:12px">One paper indexed under two records was deduplicated</p></div></div>
+    <div class="kicker">3 &middot; Selection</div>
+    <h2 class="slide-title">PRISMA-ScR <em>study flow</em></h2>
+    <div class="prisma" aria-label="PRISMA study selection diagram">
+        <div class="prisma-labels"><span>IDENTIFICATION</span><span>SCREENING</span><span>ELIGIBILITY</span><span>INCLUDED</span></div>
+        <div class="prisma-flow">
+            <div class="prisma-main">
+                <div class="prisma-box"><strong>Records identified</strong><b>529</b><small>5 databases</small></div>
+                <div class="prisma-arrow">↓</div>
+                <div class="prisma-box"><strong>Records screened</strong><b>457</b><small>After 72 duplicates removed</small></div>
+                <div class="prisma-arrow">↓</div>
+                <div class="prisma-box"><strong>Full texts assessed</strong><b>149</b></div>
+                <div class="prisma-arrow">↓</div>
+                <div class="prisma-box prisma-included"><strong>Studies included</strong><b>81</b><small>Unique studies</small></div>
+            </div>
+            <div class="prisma-side">
+                <div class="prisma-excluded"><strong>Duplicates removed</strong><b>72</b></div>
+                <div class="prisma-excluded"><strong>Records excluded</strong><b>308</b></div>
+                <div class="prisma-excluded"><strong>Full-text exclusions</strong><b>67</b><small>Concept 58 &middot; context 5<br>Design 2 &middot; unavailable 2</small></div>
+                <div class="prisma-excluded"><strong>Deduplicated studies</strong><b>1</b><small>One paper had two records</small></div>
+            </div>
+        </div>
     </div>
-    <p class="small-note reveal" style="--d:0.9s; margin-top:34px;">Every full-text exclusion reason recorded; study-level counts use the 81 unique studies.</p>
+    <p class="small-note" style="margin-top:16px;">149 assessed &minus; 67 excluded = 82 records &rarr; <strong>81 unique studies</strong></p>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>06 / 18</span></div>
 </section>
 
@@ -609,14 +643,14 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
             </div>
         </div>
     </div>
-    <div class="footer-strip reveal" style="--d:1.05s; margin-top:46px;">More than half of all records appeared in <strong>2025 alone</strong>; nearly half are conference papers and almost a quarter are preprints &mdash; a signal of where the field currently lives.</div>
+    <div class="footer-strip reveal" style="--d:1.05s; margin-top:46px;"><strong>2025:</strong> 44 records &nbsp; <strong>Conference:</strong> 38 &nbsp; <strong>Preprints:</strong> 19</div>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>07 / 18</span></div>
 </section>
 
 <!-- ============ SLIDE 8 · DOMAINS ============ -->
 <section class="slide">
     <div class="kicker reveal" style="--d:0.05s">3 &middot; Q1 &mdash; Where</div>
-    <h2 class="slide-title reveal" style="--d:0.15s">Mental health, diagnosis, education lead the map</h2>
+    <h2 class="slide-title reveal" style="--d:0.15s">The clinical <em>landscape</em></h2>
     <div class="rows" style="max-width:1560px;">
         <div class="row reveal" style="--d:0.3s"><span class="row-label" style="width:430px;">Mental health</span><div class="row-track"><div class="row-fill" style="--w:100%; --d:0.45s"></div></div><span class="row-n">16</span></div>
         <div class="row reveal" style="--d:0.38s"><span class="row-label" style="width:430px;">Diagnosis &amp; decision support</span><div class="row-track"><div class="row-fill" style="--w:93.8%; --d:0.55s"></div></div><span class="row-n">15</span></div>
@@ -627,30 +661,30 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
         <div class="row reveal" style="--d:0.78s"><span class="row-label" style="width:430px;">Triage &amp; emergency care</span><div class="row-track"><div class="row-fill" style="--w:31.3%; --d:1.05s"></div></div><span class="row-n">5</span></div>
         <div class="row reveal" style="--d:0.86s"><span class="row-label" style="width:430px;">Oncology / MDT &middot; Safety &middot; Radiology<br>Public health &middot; Sepsis</span><div class="row-track"><div class="row-fill" style="--w:25%; --d:1.15s"></div></div><span class="row-n">&le;&thinsp;4</span></div>
     </div>
-    <p class="small-note reveal" style="--d:1.25s; margin-top:30px;">Title-derived categories, n = 81, categories overlap; 11 studies (13.6%) could not be assigned a domain from title alone.</p>
+    <p class="small-note reveal" style="--d:1.25s; margin-top:30px;">Title-derived &middot; overlapping categories &middot; <strong>11 unclassified</strong></p>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>08 / 18</span></div>
 </section>
 
 <!-- ============ SLIDE 9 · ARCHITECTURE FAMILIES ============ -->
 <section class="slide">
     <div class="kicker reveal" style="--d:0.05s">3 &middot; Q2 &mdash; Architectures</div>
-    <h2 class="slide-title reveal" style="--d:0.15s">Six recurring families of <em>engineered disagreement</em></h2>
+    <h2 class="slide-title reveal" style="--d:0.15s">Six architecture <em>families</em></h2>
     <div class="rows" style="max-width:1560px;">
         <div class="row reveal" style="--d:0.3s"><span class="row-label" style="width:520px;">Debate &amp; consensus protocols</span><div class="row-track"><div class="row-fill" style="--w:100%; --d:0.45s"></div></div><span class="row-n">35</span></div>
-        <div class="row reveal" style="--d:0.38s"><span class="row-label" style="width:520px;">Knowledge- / retrieval-augmented</span><div class="row-track"><div class="row-fill" style="--w:100%; --d:0.55s"></div></div><span class="row-n">35</span></div>
+        <div class="row reveal" style="--d:0.38s"><span class="row-label" style="width:520px;">Knowledge / retrieval augmented</span><div class="row-track"><div class="row-fill" style="--w:100%; --d:0.55s"></div></div><span class="row-n">35</span></div>
         <div class="row reveal" style="--d:0.46s"><span class="row-label" style="width:520px;">Hierarchical coordinators</span><div class="row-track"><div class="row-fill" style="--w:85.7%; --d:0.65s"></div></div><span class="row-n">30</span></div>
-        <div class="row reveal" style="--d:0.54s"><span class="row-label" style="width:520px;">Self-improving / confidence-aware</span><div class="row-track"><div class="row-fill" style="--w:51.4%; --d:0.75s"></div></div><span class="row-n">18</span></div>
+        <div class="row reveal" style="--d:0.54s"><span class="row-label" style="width:520px;">Self-improving / confidence aware</span><div class="row-track"><div class="row-fill" style="--w:51.4%; --d:0.75s"></div></div><span class="row-n">18</span></div>
         <div class="row reveal" style="--d:0.62s"><span class="row-label" style="width:520px;">Simulated clinical environments</span><div class="row-track"><div class="row-fill" style="--w:48.6%; --d:0.85s"></div></div><span class="row-n">17</span></div>
         <div class="row reveal" style="--d:0.7s"><span class="row-label" style="width:520px;">Dynamic team assembly</span><div class="row-track"><div class="row-fill" style="--w:31.4%; --d:0.95s"></div></div><span class="row-n">11</span></div>
     </div>
-    <p class="small-note reveal" style="--d:1.05s; margin-top:30px;">Chartable for 75/81 studies; families overlap (a system may combine patterns) &mdash; 22 studies (27.2%) fit none of these families. Architectural family, not model capability, is the field's central design variable.</p>
+    <p class="small-note reveal" style="--d:1.05s; margin-top:30px;"><strong>75/81 chartable</strong> &middot; patterns overlap &middot; 22 fit none</p>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>09 / 18</span></div>
 </section>
 
 <!-- ============ SLIDE 10 · MODELS ============ -->
 <section class="slide">
     <div class="kicker reveal" style="--d:0.05s">3 &middot; Q3 &mdash; Models</div>
-    <h2 class="slide-title reveal" style="--d:0.15s">Frontier, proprietary, and <em>compounding</em></h2>
+    <h2 class="slide-title reveal" style="--d:0.15s">Models &amp; <em>platforms</em></h2>
     <div class="cols">
         <div class="reveal" style="--d:0.3s">
             <div class="stat-label" style="margin-bottom:18px;">Models named across studies <span class="dim">(n = 50 naming a model)</span></div>
@@ -666,16 +700,16 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
         </div>
         <div class="stack">
             <div class="card reveal" style="--d:0.45s">
-                <h3>Near-total proprietary reliance</h3>
-                <p>Of the 50 studies naming any model, <strong>49 name at least one proprietary model</strong>; exactly <strong>one</strong> is open-weight-only.</p>
+                <h3>Proprietary models</h3>
+                <p><strong>49/50 proprietary</strong><br>1 open-weight only</p>
             </div>
             <div class="card reveal" style="--d:0.58s">
-                <h3>Why that compounds</h3>
-                <p>Every agent turn is an API call. Multi-agent designs multiply <strong>cost, latency, and data-governance stakes</strong> relative to single-model deployment.</p>
+                <h3>Trade-offs</h3>
+                <p><strong>More agents</strong><br>Higher cost &middot; latency<br>Greater data risk</p>
             </div>
             <div class="card reveal" style="--d:0.71s">
-                <h3>Shared infrastructure is emerging</h3>
-                <p><strong>CrewAI in 6 studies</strong> spanning elderly care to sepsis; AutoGen in 3. Generic orchestration libraries &mdash; not bespoke clinical software &mdash; are carrying these systems into hospitals.</p>
+                <h3>Platforms</h3>
+                <p><strong>CrewAI 6</strong> &middot; AutoGen 3<br>Generic orchestration</p>
             </div>
         </div>
     </div>
@@ -685,13 +719,13 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
 <!-- ============ SLIDE 11 · EVALUATION ============ -->
 <section class="slide">
     <div class="kicker reveal" style="--d:0.05s">3 &middot; Q4 &mdash; Evaluation</div>
-    <h2 class="slide-title reveal" style="--d:0.15s">How the field grades its own homework</h2>
+    <h2 class="slide-title reveal" style="--d:0.15s">Evaluation <em>methods</em></h2>
     <div class="cols">
         <div class="reveal" style="--d:0.3s">
             <div class="stat-label" style="margin-bottom:18px;">Evaluation approaches <span class="dim">(multi-label, n = 81)</span></div>
             <div class="rows">
                 <div class="row"><span class="row-label" style="width:400px;">Benchmark evaluation</span><div class="row-track"><div class="row-fill" style="--w:100%; --d:0.45s"></div></div><span class="row-n">35</span></div>
-                <div class="row"><span class="row-label" style="width:400px;">Retrospective clinical data</span><div class="row-track"><div class="row-fill" style="--w:62.9%; --d:0.55s"></div></div><span class="row-n">22</span></div>
+                <div class="row"><span class="row-label" style="width:400px;">Retrospective data</span><div class="row-track"><div class="row-fill" style="--w:62.9%; --d:0.55s"></div></div><span class="row-n">22</span></div>
                 <div class="row"><span class="row-label" style="width:400px;">Expert clinician review</span><div class="row-track"><div class="row-fill" style="--w:48.6%; --d:0.65s"></div></div><span class="row-n">17</span></div>
                 <div class="row"><span class="row-label" style="width:400px;">Simulated cases</span><div class="row-track"><div class="row-fill" style="--w:42.9%; --d:0.75s"></div></div><span class="row-n">15</span></div>
                 <div class="row"><span class="row-label" style="width:400px;">Human participants</span><div class="row-track"><div class="row-fill fill-coral" style="--w:20%; --d:0.85s"></div></div><span class="row-n">7</span></div>
@@ -700,16 +734,16 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
         </div>
         <div class="stack">
             <div class="card reveal" style="--d:0.45s">
-                <h3>Most common datasets</h3>
-                <p><strong>MedQA</strong> (11) &middot; <strong>PubMedQA</strong> (9) &middot; MIMIC-IV (4) &middot; MedMCQA (4) &middot; real hospital case series (4).</p>
+                <h3>Top datasets</h3>
+                <p><strong>MedQA 11</strong> &middot; PubMedQA 9<br>MIMIC-IV 4 &middot; MedMCQA 4</p>
             </div>
             <div class="card reveal" style="--d:0.58s">
                 <h3>What's measured</h3>
-                <p>Task performance 39 &middot; collaboration ablations 19 &middot; human/expert eval 17 &middot; clinician acceptability 13 &middot; BLEU/ROUGE 8 &middot; kappa agreement <strong>4</strong>.</p>
+                <p>Performance <strong>39</strong> &middot; ablations 19<br>Human/expert 17 &middot; Kappa 4</p>
             </div>
             <div class="card reveal" style="--d:0.71s">
                 <h3>The pattern</h3>
-                <p>Verified evidence sits on <strong>benchmarks and retrospective data</strong>. Only <strong>7 of 81 studies</strong> put the system in front of people.</p>
+                <p><strong>Benchmarks dominate</strong><br>Only <strong>7/81</strong> tested with people</p>
             </div>
         </div>
     </div>
@@ -724,21 +758,21 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
         <div class="stack">
             <div class="card reveal" style="--d:0.28s">
                 <h3>Against single-agent baselines</h3>
-                <p>MedAgents <strong>86.7 vs 80.6</strong> zero-shot (Tang 2024) &middot; <strong>89.2 vs 77.4</strong> on MedQA (Chen 2025) &middot; <strong>97.8 vs 52.9</strong> vs single-modality tools (Wan 2025) &middot; best in 7 of 10 benchmarks (MDAgents, Kim 2024)</p>
+                <p>Multi-agent wins across benchmarks<br><strong>86.7 vs 80.6</strong> &middot; <strong>89.2 vs 77.4</strong><br>Best on <strong>7/10</strong> benchmarks</p>
             </div>
             <div class="card reveal" style="--d:0.4s">
                 <h3>Attributable to interaction</h3>
-                <p><strong>+5.49% F1</strong> from cross-validation over an evidence tree (Peng 2025) &middot; PubMedQA 0.729&rarr;0.772 (MedARC, Miao 2026) &middot; <strong>+6.4 / +8.5 pts</strong> from layered debating (Zhao 2025)</p>
+                <p>Debate &amp; cross-validation add value<br><strong>+5.49% F1</strong> &middot; +6.4 / +8.5 pts</p>
             </div>
         </div>
         <div class="stack">
             <div class="card reveal" style="--d:0.52s">
-                <h3>Largest real-data evaluation</h3>
-                <p>Liver-transplant committee on <strong>8,412 registry patients</strong>: <strong>92.0%</strong> one-year survival accuracy (95% CI 91.4&ndash;92.6), <strong>98.2%</strong> contraindication detection &mdash; still retrospective (Hasjim 2026, <span class="dim">Lancet Digital Health</span>).</p>
+                <h3>Transplant study</h3>
+                <p><strong>8,412 patients</strong><br>92.0% survival accuracy<br>98.2% contraindication detection<br><strong>Retrospective</strong></p>
             </div>
             <div class="card reveal" style="--d:0.64s">
-                <h3>The overhead is real</h3>
-                <p>Collaboration costs <strong>4&ndash;12&times;</strong> processing time (Wan 2025) &middot; <strong>3.6&times;</strong> tokens and wall-clock (Mandal 2025) &middot; 3,657 s vs 1,853 s vs majority voting (Ma 2026) &mdash; and one benchmark asks when the overhead pays off at all (Zhu 2026).</p>
+                <h3>Computational cost</h3>
+                <p><strong>4&ndash;12&times;</strong> processing time<br><strong>3.6&times;</strong> tokens &amp; latency<br>When does collaboration pay?</p>
             </div>
         </div>
     </div>
@@ -754,7 +788,7 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
         <div class="card reveal" style="--d:0.4s"><h3>With participants</h3><p><strong>20 elderly users</strong>, ages 54&ndash;83, adaptive cognitive training (Ferri-Molla 2025) &middot; 10 students, trust &amp; interaction burden (Walji 2025) &middot; 18 participants, dialogue evaluation (MentalAgora, Lee 2024)</p></div>
         <div class="card reveal" style="--d:0.52s"><h3>By proxy</h3><p>Patient-facing benefit measured through simulated patients, expert panels, rubrics &mdash; <strong>no patient-reported outcome, QoL instrument, or clinical endpoint</strong> in any included study.</p></div>
     </div>
-    <p class="lede reveal" style="--d:0.68s; margin-top:42px;">The paradigm's claimed advantages &mdash; bias mitigation through disagreement, error interception through critique &mdash; are <em style="color:var(--accent)">precisely the properties that need real clinical conditions to be tested</em>.</p>
+    <p class="lede reveal" style="--d:0.68s; margin-top:42px;"><strong>Promising in theory.</strong><br><em style="color:var(--accent)">Unproven in real clinical care.</em></p>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>13 / 18</span></div>
 </section>
 
@@ -766,11 +800,11 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
         <div class="stack">
             <div class="card reveal" style="--d:0.28s">
                 <h3>Interaction-level failure modes</h3>
-                <p><strong>Collusion</strong>: many-to-one adversarial consensus &mdash; attack success <strong>1.00</strong>, until a verifier agent drops it to <strong>0.00</strong> (Bashir 2025) &middot; <strong>unsafe-content propagation</strong> across agent networks (MedSentry, Chen 2025) &middot; <strong>false consensus</strong> that suppresses a correct minority.</p>
+                <p><strong>Collusion</strong> &middot; unsafe propagation<br><strong>False consensus</strong><br>Verifier: attack <strong>1.00 &rarr; 0.00</strong></p>
             </div>
             <div class="card reveal" style="--d:0.4s">
                 <h3>Structural mitigations</h3>
-                <p>Dedicated verifier / safety-checker agents (5 studies) &middot; tiered agentic oversight &mdash; best on 4 of 5 healthcare safety benchmarks (Kim 2025) &middot; human-in-the-loop consensus (Li 2025) &middot; retrieval grounding as the most common hallucination control.</p>
+                <p><strong>Verifier agents</strong><br>Human oversight &middot; grounded retrieval</p>
             </div>
         </div>
         <div class="reveal" style="--d:0.5s">
@@ -782,7 +816,7 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
                 <div class="row"><span class="row-label" style="width:330px;">Interpretability</span><div class="row-track"><div class="row-fill fill-coral" style="--w:42.9%; --d:0.9s"></div></div><span class="row-n">12</span></div>
                 <div class="row"><span class="row-label" style="width:330px;">Adversarial manipulation</span><div class="row-track"><div class="row-fill fill-coral" style="--w:7.1%; --d:1s"></div></div><span class="row-n">2</span></div>
             </div>
-            <p class="small-note" style="margin-top:26px;">Bias made measurable: simulated implicit/cognitive biases cut diagnostic accuracy by up to <span class="mono" style="color:var(--coral)">24% / 32%</span> (Hassan 2025).</p>
+            <p class="small-note" style="margin-top:26px;">Bias reduced diagnostic accuracy by up to <strong style="color:var(--coral)">24% / 32%</strong></p>
         </div>
     </div>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>14 / 18</span></div>
@@ -793,12 +827,12 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
     <div class="kicker reveal" style="--d:0.05s">3 &middot; Reading the absences</div>
     <h2 class="slide-title reveal" style="--d:0.15s">What the literature <em>doesn't</em> say</h2>
     <div class="grid-2" style="gap:30px;">
-        <div class="card reveal" style="--d:0.28s"><h3>Zero randomized controlled trials</h3><p>No RCT and no mixed-methods study among the 81. The strongest clinical evidence is one retrospective cohort.</p></div>
-        <div class="card reveal" style="--d:0.38s"><h3>No patient outcomes</h3><p>No patient-reported outcome measure, quality-of-life instrument, or clinical endpoint in patients exposed to any system.</p></div>
-        <div class="card reveal" style="--d:0.48s"><h3>No workload instruments</h3><p>No standardized clinician-workload measure in any study; no documentation time, turnaround time, or staffing cost reported.</p></div>
-        <div class="card reveal" style="--d:0.58s"><h3>No governance vocabulary</h3><p>Liability, regulatory compliance, reimbursement, post-deployment monitoring: absent from every charted source.</p></div>
+        <div class="card reveal" style="--d:0.28s"><h3>0 RCTs</h3><p><strong>Retrospective evidence only</strong></p></div>
+        <div class="card reveal" style="--d:0.38s"><h3>0 patient outcomes</h3><p><strong>No clinical endpoints</strong></p></div>
+        <div class="card reveal" style="--d:0.48s"><h3>0 workload measures</h3><p><strong>Time &middot; staffing &middot; workload</strong></p></div>
+        <div class="card reveal" style="--d:0.58s"><h3>0 governance reports</h3><p><strong>Liability &middot; regulation &middot; monitoring</strong></p></div>
     </div>
-    <p class="small-note reveal" style="--d:0.72s; margin-top:34px;">These are absences <em>from this map</em> &mdash; the field has no measured answer yet, which is exactly why the map matters.</p>
+    <p class="small-note reveal" style="--d:0.72s; margin-top:34px;">Evidence gaps are the <strong>research agenda</strong>.</p>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>15 / 18</span>
     </div>
 </section>
@@ -810,15 +844,15 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
     <div>
         <div class="dir reveal" style="--d:0.3s">
             <div class="dir-n">1</div>
-            <div><h3>Standardized comparison</h3><p>Routine head-to-head against strong single-model baselines on the same tasks; isolate the marginal value of each mechanism &mdash; debate, critique, consensus &mdash; through ablation (MedAgentBoard, Zhu 2026).</p></div>
+            <div><h3>Standardized comparison</h3><p><strong>Multi-agent vs strong single-model</strong><br>Isolate each collaboration mechanism</p></div>
         </div>
         <div class="dir reveal" style="--d:0.45s">
             <div class="dir-n">2</div>
-            <div><h3>Prospective clinical validation</h3><p>Predefined clinical endpoints, clinician workload measures, and error audits of inter-agent transcripts &mdash; motivated by the transplant-committee result (Hasjim 2026) and early acceptability work (Held 2025).</p></div>
+            <div><h3>Prospective clinical validation</h3><p><strong>Clinical endpoints</strong> &middot; workload<br>Audit inter-agent errors</p></div>
         </div>
         <div class="dir reveal" style="--d:0.6s">
             <div class="dir-n">3</div>
-            <div><h3>Interaction-level safety &amp; reporting standards</h3><p>Disclose agent roles, interaction topologies, termination rules, oversight points. <strong>Interaction transcripts are the multi-agent analogue of model cards.</strong></p></div>
+            <div><h3>Interaction-level safety &amp; reporting</h3><p><strong>Roles</strong> &middot; topology &middot; oversight<br>Publish interaction transcripts</p></div>
         </div>
     </div>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>16 / 18</span></div>
@@ -828,13 +862,13 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
 <section class="slide">
     <div class="kicker reveal" style="--d:0.05s">5 &middot; Conclusion</div>
     <h2 class="slide-title reveal" style="--d:0.15s">Architecturally mature, <em>clinically unproven</em></h2>
-    <p class="lede reveal" style="--d:0.3s; max-width:1500px;">The premise that structured disagreement among role-specialized agents reproduces the error-correcting properties of clinical teamwork is now built &mdash; in 81 studies across three years &mdash; but not yet tested where it counts.</p>
+    <p class="lede reveal" style="--d:0.3s; max-width:1500px;"><strong>81 studies.</strong> Mature architectures.<br><em style="color:var(--accent)">Clinical benefit still unproven.</em></p>
     <div class="grid-3" style="margin-top:44px;">
-        <div class="card reveal" style="--d:0.45s"><h3>Validate</h3><p>Move from benchmarks and retrospective cohorts to prospective, clinician- and patient-facing studies.</p></div>
-        <div class="card reveal" style="--d:0.57s"><h3>Compare</h3><p>Standardize against simpler baselines before crediting the collaboration itself.</p></div>
-        <div class="card reveal" style="--d:0.69s"><h3>Govern</h3><p>Design oversight for the interaction &mdash; collusion, propagation, false consensus &mdash; not just the single output.</p></div>
+        <div class="card reveal" style="--d:0.45s"><h3>Validate</h3><p><strong>Prospective clinical studies</strong></p></div>
+        <div class="card reveal" style="--d:0.57s"><h3>Compare</h3><p><strong>Strong single-agent baselines</strong></p></div>
+        <div class="card reveal" style="--d:0.69s"><h3>Govern</h3><p><strong>Interaction-level oversight</strong></p></div>
     </div>
-    <p class="lede reveal" style="--d:0.85s; margin-top:44px; color:var(--accent);">Multi-agent systems could extend multidisciplinary judgment to where human specialist collaboration is scarce &mdash; <strong>augmenting, not replacing, the clinical teams they imitate.</strong></p>
+    <p class="lede reveal" style="--d:0.85s; margin-top:44px; color:var(--accent);"><strong>Augment clinical teams. Never replace them.</strong></p>
     <div class="chrome"><span>Do Le Long An &middot; Scoping review</span><span>17 / 18</span></div>
 </section>
 
@@ -845,7 +879,7 @@ body.edit-mode .editable { outline: 1px dashed rgba(47, 214, 179, 0.4); outline-
     <svg class="ecg reveal" style="--d:0.35s; max-width:1080px;" viewBox="0 0 1080 90" aria-hidden="true">
         <path d="M0,50 L200,50 L216,50 L228,18 L240,74 L252,36 L264,50 L520,50 L536,50 L548,12 L560,78 L572,32 L584,50 L1080,50"/>
     </svg>
-    <p class="hero-sub reveal" style="--d:0.5s">Full charting with verbatim supporting quotations &middot; Supplementary Data Files 1&ndash;3</p>
+    <p class="hero-sub reveal" style="--d:0.5s">81 studies &middot; PRISMA-ScR</p>
     <div class="author reveal" style="--d:0.62s">Do Le Long An</div>
     <div class="meta-row reveal" style="--d:0.74s">
         <span class="chip">81 studies</span>
